@@ -1,0 +1,133 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Ukrainian (Ukraine) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_UKR)
+LANGUAGE LANG_UKRAINIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TEXTSETTINGDLG DIALOGEX 0, 0, 780, 71
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_BORDER
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Шрифт",IDC_STATIC,7,0,100,30
+    COMBOBOX        IDC_FONT,12,10,89,51,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Розмір тексту",IDC_STATIC,114,0,56,30
+    COMBOBOX        IDC_TEXTSIZE,120,10,45,51,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Курсив",IDC_ITAL,184,10,66,14
+    GROUPBOX        "Тип шрифту",IDC_STATIC,177,0,80,64
+    PUSHBUTTON      "Підкреслений",IDC_UNDERL,184,26,66,14
+    PUSHBUTTON      "Закреслений",IDC_CROSSL,184,43,66,14
+    CONTROL         "",IDC_BOLDFONTSLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,15,42,154,17,WS_EX_STATICEDGE
+    GROUPBOX        "Товщина шрифту",IDC_STATIC,10,32,163,32
+    GROUPBOX        "Напрям тексту",IDC_STATIC,263,0,109,42
+    PUSHBUTTON      "Ліво-право",IDC_LRBUTTON,268,9,49,14
+    PUSHBUTTON      "Право-ліво",IDC_RLBUTTON,317,9,49,14
+    PUSHBUTTON      "Зверху-вниз",IDC_UDBUTTON,268,23,49,14
+    PUSHBUTTON      "Знизу-вгору",IDC_DUBUTTON,317,23,49,14
+    GROUPBOX        "Колір тексту",IDC_STATIC,380,0,133,22
+    GROUPBOX        "Колір фону",IDC_STATIC,380,20,133,22
+    CONTROL         "",IDC_TEXTCOLORSLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,381,9,130,11
+    CONTROL         "",IDC_BACKGRCOLORSLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,381,28,130,11
+    GROUPBOX        "Вирівнюання",IDC_STATIC,263,44,250,20
+    CONTROL         "Ліворуч",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,327,52,42,10
+    CONTROL         "Центрування",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,383,52,61,10
+    CONTROL         "Праворуч",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,455,52,49,10
+    GROUPBOX        "Кут оберту символів",IDC_STATIC,520,0,252,43,WS_DISABLED
+    CONTROL         "",IDC_ROTATEANGLESLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_DISABLED | WS_TABSTOP,525,14,213,18,WS_EX_STATICEDGE
+    CTEXT           "0",IDC_ANGLETEXT,742,17,25,11,WS_DISABLED | NOT WS_GROUP,WS_EX_STATICEDGE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_TEXTSETTINGDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 773
+        VERTGUIDE, 12
+        VERTGUIDE, 61
+        VERTGUIDE, 124
+        VERTGUIDE, 250
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 64
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_TEXTSETTINGDLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // Ukrainian (Ukraine) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
