@@ -43,40 +43,6 @@ void TextField::ReverseSymbols() {
 }; 
 void TextField::ReverseStrings() {
 	if (allText.size()) {
-		//if (!isReverseStr) {
-		//	if (!isReverseSym) {
-		//		if (allText.at(strings - 1)[0] == '\n')
-		//			allText.at(strings - 1).erase(0, 1);
-		//		if(allText.at(strings-1).back()!='\n')
-		//			allText.at(strings - 1) += '\n';
-		//	}
-		//	else {
-		//		/*if (allText.at(0).back() == '\n')
-		//			allText.at(0).pop_back();*/
-		//		if(allText.at(0)[0]=='\n')
-		//			allText.at(0).erase(0, 1);
-		//		if (allText.at(0).back() != '\n')
-		//			allText.at(0) += '\n';
-		//		//allText.at(0) = '\n' + allText.at(strings - 1);
-		//	}
-		//}
-		//else {
-		//	if (!isReverseSym) {
-		//		/*allText.at(0).pop_back();*/
-		//		if (allText.at(strings - 1).back() == '\n')
-		//			allText.at(strings - 1).pop_back();
-		//		if (allText.at(strings - 1)[0] != '\n')
-		//			allText.at(strings - 1) = '\n' + allText.at(strings - 1);
-		//	}
-		//	else {
-		//		if (allText.at(0).back() == '\n')
-		//			allText.at(0).pop_back();
-		//		if (allText.at(0)[0] != '\n')
-		//			allText.at(0) = '\n'+ allText.at(0);
-		//		//allText.at(strings - 1).erase(0,1);
-		//	}
-		//}
-
 		/* \n deleter */
 		for (int s = 0; s < allText.size(); s++) {
 			if (allText.at(s).size()) {
@@ -147,15 +113,15 @@ int TextField::GetSymOrientationInDegrees() {
 };
 
 void TextField::UpdateFont(HDC hdc) {
+	DeleteObject(font);
 	font = /*(ital) ?
 		CreateFontA(sizeTextH - .5, sizeTextW, orientationText, orientationSymbols, weightText, ital, underline, strike,
 			DEFAULT_CHARSET | EASTEUROPE_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 			DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, (LPCSTR)baseFont) :*/
-		CreateFont(sizeTextH, sizeTextW, orientationText, orientationSymbols, weightText, ital, underline, strike,
-			/*DEFAULT_CHARSET | EASTEUROPE_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-			DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE*/
+		CreateFont(sizeTextH, sizeTextW, orientationText, orientationSymbols,
+			weightText, ital, underline, strike,
 			DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, /*TEXT("Arial")*/baseFont/*(LPCSTR)baseFont*/);
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, baseFont);
 	SelectObject(hdc, font);
 }
 void TextField::UpdateRects() {
@@ -194,6 +160,10 @@ TextField::TextField/*CreateTextField*/(int emptyCord) {
 }
 
 void TextField::AddSym(char sym) {
+	if (allText.size() > 100) {
+		allText.at(0) = allText.size();
+		return;
+	}
 	if (!isReverseSym) {
 		if (sym == '\n') {
 			if (!isReverseStr) {
@@ -445,7 +415,7 @@ void TextField::SetTextOrientation(int orientaion) {
 	//orientationText = orientaion;
 }
 void TextField::SetSymbolsRotate(int degree) {
-	orientationSymbols = degree*100;
+	orientationSymbols = degree*10;
 };
 void TextField::SetWeight(short int boldInex) {
 	weightText = boldTypes[boldInex];

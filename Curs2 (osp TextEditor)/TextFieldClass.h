@@ -57,7 +57,9 @@ class TextField {
 
 	HPEN framePen;
 	//HBRUSH frameBrush = CreateSolidBrush(RGB(255, 255, 255)), textBrush = (HBRUSH)RGB(255, 255, 255);
-	HFONT font;
+	HFONT font= CreateFont(20, 8, 0, 0, 400, 0, 0, 0,
+		DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Arial"));
 	LONG defWndStyle, mirrorWndStyle;
 	//std::string text;
 	//vector <char> text;

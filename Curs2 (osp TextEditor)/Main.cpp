@@ -223,19 +223,18 @@ INT_PTR CALLBACK DialogFunc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 	static HDC hdcDlg;
 	static HWND fontsCBhWnd, sizesCBhWnd;
 	static const int fontsCount = 57, const fontSizesCount = 44;
-	static int currentFontIndex = 0, currentSizeIndex = 0,// rotateSym=0,
-		textBold = 0, textColor = 0, backgrColor = 0/*, aligmentType= TEXTFIELD_ALIGMENT_LEFT*//*short checkAligm*/;
-	static const TCHAR* fontNamesList[fontsCount],// = { L"Arial", L"Arial Black", L"Bahnchrift", L"Calibri",  L"Cambria",  L"Candara",  L"Comic Sans MS",  L"Consolas",  L"Corbel",  L"Courier New",  L"Ebrima",  L"Franklin Gothic Medium",  L"Gabriola",  L"Gadugi",  L"Georgia",  L"HoloLens MDL2 Assets",  L"Impact",  L"Ink Free", L"Japanese Text", L"Leelawadee UI", L"Lucida Console", L"Lucida Sans Unicode", L"Malgum Gothic", L"Marlett", L"Microsoft Himalaya", L"Microsoft JhengHei", L"Microsoft New Tai Lue", L"Microsoft PhagsPa", L"Microsoft Sans Serif", L"Microsoft Tai Le",  L"Microsoft YaHei",  L"Microsoft Yi Baiti",  L"MingLiu-ExtB",  L"Mongolian Baiti",  L"MS Gothic",  L"MV Boli",  L"Myanmar Text", L"Nirmala UI", L"Palatino LinoType", L"Segoe MDL2 Assets", L"Segoe Print",  L"Segoe Script",  L"Segoe UI",  L"Segoe UI Historic",  L"Segoe UI Emoji",  L"Segoe UI Symbol",  L"SimSun", L"Sitka", L"Sylfaen", L"Symbol", L"Tahoma", L"Times New Roman", L"Trebuchet MS", L"Verdana",  L"Webdings", L"Wingdings", L"Yu Gothic" },
+	static int currentFontIndex = 0, currentSizeIndex = 0, rotateSym=0,
+		textBold = 0, textColor = 0, backgrColor = 0;
+	static const TCHAR* fontNamesList[fontsCount],
 		* fontSizesList[30];
-	//dlgHwnd=hDlg;
-	//MoveWindow(hDlg, )
-	//static FILE* file{};
+	string angleRotate;
+
 	for (int f = 0; f < fontsCount; f++)
 		fontNamesList[f] = defaulFonts[f];
 	for (int s = 0; s < fontSizesCount - 1; s++)
 		fontSizesList[s] = (wchar_t*)(new std::wstring(std::to_wstring(8 + s * 2)))->c_str();
 
-	MoveWindow(hDlg, /*firstWndPoint.x, firstWndPoint.y*/wndRect.left, wndRect.top - settingDlgHeight, settingDlgWidth*1.5, settingDlgHeight, false);
+	MoveWindow(hDlg, wndRect.left, wndRect.top - settingDlgHeight, settingDlgWidth*1.5, settingDlgHeight, false);
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message) {
 	case WM_LBUTTONDOWN:
@@ -246,7 +245,6 @@ INT_PTR CALLBACK DialogFunc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 	case WM_INITDIALOG:
 		dialogIsOpened = true;
 
-		//SendDlgItemMessage(hDlg, IDC_LRBUTTON, BS_DISA, wParam, lParam);
 		//fonts list
 		for (short int i = 0; i < fontsCount - 1; i++)
 			SendDlgItemMessage(hDlg, IDC_FONT, CB_ADDSTRING, 0, (LPARAM)fontNamesList[i]);
@@ -277,9 +275,10 @@ INT_PTR CALLBACK DialogFunc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		EnableWindow(GetDlgItem(hDlg, IDC_DUBUTTON), !currentTextField.IsReverseStr());
 
 		//symbols rotate
-		//SetDlgItemText(hDlg, IDC_ANGLETEXT, ConvertIntToWstr(rotateSym).c_str());
-		//SendDlgItemMessage(hDlg, IDC_ROTATEANGLESLIDER, TBM_SETRANGE, true, MAKELPARAM(0, 360));
-		//SendDlgItemMessage(hDlg, IDC_ROTATEANGLESLIDER, TBM_SETPOS, true, 0);
+		angleRotate = to_string(rotateSym);
+		SetDlgItemText(hDlg, IDC_ANGLETEXT, wstring(angleRotate.begin(), angleRotate.end()).c_str());
+		SendDlgItemMessage(hDlg, IDC_ROTATEANGLESLIDER, TBM_SETRANGE, true, MAKELPARAM(0, 360));
+		SendDlgItemMessage(hDlg, IDC_ROTATEANGLESLIDER, TBM_SETPOS, true, 0);
 
 		break;
 	case WM_COMMAND:
@@ -315,28 +314,15 @@ INT_PTR CALLBACK DialogFunc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			SendMessage(GetDlgItem(hDlg, IDC_CROSSL), BM_SETSTYLE, (currentTextField.IsCrossL()) ? BS_DEFPUSHBUTTON : BS_FLAT, lParam);
 			break;
 		case IDC_LRBUTTON: 
-			/*(buffTF.GetReverseSym()) ?
-				SendMessage(GetDlgItem(hDlg, IDC_LRBUTTON), BM_SETSTYLE, BS_DEFPUSHBUTTON, lParam) :
-				SendMessage(GetDlgItem(hDlg, IDC_LRBUTTON), BM_SETSTYLE, BS_FLAT, lParam);*/
 			currentTextField.SetTextOrientation(TEXTFIELD_ORIENTATION_LR);
 			break;
 		case IDC_RLBUTTON: 
-			/*(!buffTF.GetReverseSym()) ?
-				SendMessage(GetDlgItem(hDlg, IDC_RLBUTTON), BM_SETSTYLE, BS_DEFPUSHBUTTON, lParam) :
-				SendMessage(GetDlgItem(hDlg, IDC_RLBUTTON), BM_SETSTYLE, BS_FLAT, lParam);*/
 			currentTextField.SetTextOrientation(TEXTFIELD_ORIENTATION_RL);
 			break;
 		case IDC_UDBUTTON: 
-			/*(buffTF.GetReverseStr()) ?
-				SendMessage(GetDlgItem(hDlg, IDC_UDBUTTON), BM_SETSTYLE, BS_DEFPUSHBUTTON, lParam) :
-				SendMessage(GetDlgItem(hDlg, IDC_UDBUTTON), BM_SETSTYLE, BS_FLAT, lParam);*/
 			currentTextField.SetTextOrientation(TEXTFIELD_ORIENTATION_UD);
-			//InvalidateRect(hDlg, NULL, true);
 			break;
 		case IDC_DUBUTTON: 
-			/*(!buffTF.GetReverseStr()) ?
-				SendMessage(GetDlgItem(hDlg, IDC_DUBUTTON), BM_SETSTYLE, BS_DEFPUSHBUTTON, lParam) :
-				SendMessage(GetDlgItem(hDlg, IDC_DUBUTTON), BM_SETSTYLE, BS_FLAT, lParam);*/
 			currentTextField.SetTextOrientation(TEXTFIELD_ORIENTATION_DU);
 			/*break;
 				default:*/		
@@ -349,24 +335,21 @@ INT_PTR CALLBACK DialogFunc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		EnableWindow(GetDlgItem(hDlg, IDC_UDBUTTON), currentTextField.IsReverseStr());
 		EnableWindow(GetDlgItem(hDlg, IDC_DUBUTTON), !currentTextField.IsReverseStr());
 
-		//font tupes buttons
-		//EnableWindow(GetDlgItem(hDlg, IDC_ITAL), !currentTextField.IsItal());
-		//EnableWindow(GetDlgItem(hDlg, IDC_UNDERL), !currentTextField.IsUnderL());
-		//EnableWindow(GetDlgItem(hDlg, IDC_CROSSL), !currentTextField.IsCrossL());
 		InvalidateRect(parentHwnd, &wndRect, true);
 		break;
 	case WM_HSCROLL:
 		textBold = SendDlgItemMessage(hDlg, IDC_BOLDFONTSLIDER, TBM_GETPOS, 0, 0);
 		textColor = SendDlgItemMessage(hDlg, IDC_TEXTCOLORSLIDER, TBM_GETPOS, 0, 0);
 		backgrColor = SendDlgItemMessage(hDlg, IDC_BACKGRCOLORSLIDER, TBM_GETPOS, 0, 0);
-		//rotateSym = SendDlgItemMessage(hDlg, IDC_ROTATEANGLESLIDER, TBM_GETPOS, 0, 0);
+		rotateSym = SendDlgItemMessage(hDlg, IDC_ROTATEANGLESLIDER, TBM_GETPOS, 0, 0);
 
 		currentTextField.SetWeight(textBold/* * 100*/);
 		currentTextField.SetTextColor_Generator(textColor);
 		currentTextField.SetTextBackgroundColor_Generator(backgrColor);
-		//currentTextField.SetSymbolsRotate(rotateSym);
+		currentTextField.SetSymbolsRotate(rotateSym);
 
-		//SetDlgItemText(hDlg, IDC_ANGLETEXT, ConvertIntToWstr(rotateSym/*currentTextField.GetSymOrientationInDegrees()*/).c_str());
+		angleRotate = to_string(rotateSym);
+		SetDlgItemText(hDlg, IDC_ANGLETEXT, wstring(angleRotate.begin(), angleRotate.end()).c_str());
 
 		InvalidateRect(parentHwnd, &wndRect, true);
 		break;
